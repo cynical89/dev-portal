@@ -3,6 +3,45 @@
 	<div class="starter-template">
 		<h1>{{get_name}}</h1>
 		<p class="lead">This is the admin page.</p>
+		<br><br>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal"><Small>Add Task</Small></button>
 	</div>
+
+	<div class="add-task">
+	        <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+	            <div class="modal-dialog" role="document">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                            <span aria-hidden="true">&times;</span>
+	                        </button>
+	                        <h4 class="modal-title" id="taskModalLabel">New Task</h4>
+	                    </div>
+	                    <div class="modal-body">
+	                        <form>
+	                            <input type="hidden" name="User" value="@User.Identity.Name"/>
+	                            <input type="hidden" name="ParentPost" value="@post.Id"/>
+	                            <div class="form-group">
+	                                <label for="message-text" class="form-control-label">Title:</label>
+	                                <input type="text" class="form-control" id="title-text" name="Content"></input>
+	                            </div>
+															<div class="form-group">
+	                                <label for="message-text" class="form-control-label">Role:</label>
+	                                <input type="text" class="form-control" id="role-text" name="Content" disabled></input>
+	                            </div>
+	                        </form>
+													<div class="form-group">
+															<label for="message-text" class="form-control-label">Content</label>
+															<textarea type="text" class="form-control" id="content-text" name="Content"></textarea>
+													</div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	                        <button type="button" id="taskSubmitButton" class="btn btn-primary" data-dismiss="modal">Add Task</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 
 </div><!-- /.container -->

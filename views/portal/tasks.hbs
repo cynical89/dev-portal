@@ -3,6 +3,14 @@
 	<div class="starter-template">
 		<h1>{{get_name}}</h1>
 		<p class="lead">This is the tasks page.</p>
-	</div>
+	</div><hr>
+
+{{#each tasks}}
+	{{#each this}}
+	<h4><strong>{{this.title}}</strong></h4>
+	<p><small>{{this.description}}</small></p>
+	{{/each}}
+	<hr>
+{{/each}}
 
 </div><!-- /.container -->

@@ -13,8 +13,6 @@
 			<ul class="nav navbar-nav navbar-right">
 				{{#if admin}}
 					<li><a href="/portal/admin">Admin</a></li>
-				{{else}}
-					<p>not admin</p>
 				{{/if}}
 				{{#ifCond user "||" admin}}
 					<li><a href="/account">Account</a></li>

@@ -65,3 +65,17 @@ exports.removeDocument = function* removeDocument(id, database) {
 		};
 	}
 };
+
+exports.getAllTasks = function* getAllTasks() {
+	try {
+		const db = connectToDatabase("tasks");
+		const doc = yield db.viewAsync("gettasks/all");
+		doc.error = false;
+		return doc;
+	} catch (err) {
+		return {
+			error: true,
+			message: "DB: Get of all task docs failed"
+		};
+	}
+};

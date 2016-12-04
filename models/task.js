@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-	newTask: (title, role, description) => {
+	newTask: (title, description, role = "Any") => {
 		const task = {
 			error: false,
 			title: title,

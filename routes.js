@@ -23,6 +23,8 @@ routes.get("/account", account.index);
 
 routes.get("/portal/tasks", portal.tasks);
 // routes.get("/portal/task/:id", portal.task);
+routes.get("/portal/admin", portal.admin);
+routes.post("/portal/admin/addTask", portal.addTask);
 
 // you can add as many strategies as you want
 routes.get("/auth/github",
