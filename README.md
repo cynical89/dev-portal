@@ -4,6 +4,7 @@ A quick developer portal for assigning and keeping track of tasks
 ## Prerequisites
 * [Node.js](https://nodejs.org/en/) (Version 5 and up recommended)
 * [Github Client ID and Secret](https://github.com/settings/developers) (for OAuth)
+* [CouchDB](http://couchdb.apache.org/) (for storing information)
 
 ### Installation
 
