@@ -4,6 +4,9 @@ const passport = require("../index.js").passport;
 const config = require("../config.json");
 const co = require("co");
 
+const db = require("../helpers/db");
+const userModel = require("../models/users");
+
 passport.serializeUser((user, done) => {
 	done(null, user);
 });
@@ -26,6 +29,19 @@ passport.use(new GithubStrategy({
 	// retrieve user ...
 	co(function* auth() {
 		// do some async/yield stuff here to get/set profile data
+		// check if the user exists in the db.
+		const document = yield db.getDocument(profile.username, "devs");
+		// if not create the user.
+		if (document.error === true) {
+			const username = profile.username;
+			const avatar = profile._json.avatar_url;
+			let email = "none";
+			if (profile.emails[0].value !== null || profile.emails[0].value !== undefined) {
+				email = profile.emails[0].value;
+			}
+			const user = userModel.newUser(username, email, avatar);
+			const doc = yield db.saveDocument(user, "devs");
+		}
 		done(null, profile);
 	}).catch(function onError(e) {
 		console.error("Something went terribly wrong!");

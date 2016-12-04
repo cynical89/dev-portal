@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/cynical89/dev-portal#readme",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "co": "^4.6.0",
+    "cradle": "^0.7.1",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
     "koa-generic-session": "^1.10.0",

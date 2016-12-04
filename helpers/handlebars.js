@@ -29,3 +29,27 @@ hbs.registerHelper("has_analytics", function has_analytics(opts) {
 	const fnFalse = opts.inverse;
 	return (config.site.analytics && config.site.analytics !== false) ? fnTrue() : fnFalse();
 });
+
+hbs.registerHelper("ifCond", function ifCond(v1, operator, v2, options) {
+
+	switch (operator) {
+	case "==":
+		return (v1 == v2) ? options.fn(this) : options.inverse(this);
+	case "===":
+		return (v1 === v2) ? options.fn(this) : options.inverse(this);
+	case "<":
+		return (v1 < v2) ? options.fn(this) : options.inverse(this);
+	case "<=":
+		return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+	case ">":
+		return (v1 > v2) ? options.fn(this) : options.inverse(this);
+	case ">=":
+		return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+	case "&&":
+		return (v1 && v2) ? options.fn(this) : options.inverse(this);
+	case "||":
+		return (v1 || v2) ? options.fn(this) : options.inverse(this);
+	default:
+		return options.inverse(this);
+	}
+});

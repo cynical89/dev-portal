@@ -11,11 +11,16 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				{{#if user}}
-					<li><a href="/settings">Account</a></li>
+				{{#if admin}}
+					<li><a href="/portal/admin">Admin</a></li>
+				{{else}}
+					<p>not admin</p>
+				{{/if}}
+				{{#ifCond user "||" admin}}
+					<li><a href="/account">Account</a></li>
 				{{else}}
 					<li><a href="/login">Login</a></li>
-				{{/if}}
+				{{/ifCond}}
 			</ul>
 		</div>
 	</div>

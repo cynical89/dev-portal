@@ -10,6 +10,7 @@ const routes = new Router();
 
 const main = require("./controllers/main.js");
 const account = require("./controllers/account.js");
+const portal = require("./controllers/portal.js");
 
 // routes
 
@@ -19,6 +20,9 @@ routes.get("/", main.index);
 routes.get("/login", account.login);
 routes.get("/logout", account.logout);
 routes.get("/account", account.index);
+
+routes.get("/portal/tasks", portal.tasks);
+// routes.get("/portal/task/:id", portal.task);
 
 // you can add as many strategies as you want
 routes.get("/auth/github",
