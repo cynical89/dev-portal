@@ -1,6 +1,7 @@
 const co = require("co");
 const Promise = require("bluebird");
-const cradle	= Promise.promisifyAll(require("cradle"));
+const cradle	= Promise.promisifyAll(require("cradle"), db);
+const config = require("../config.json");
 
 // A custom Error just for database problems.
 function CouchDBError(message) {
@@ -12,7 +13,8 @@ CouchDBError.prototype = Error.prototype;
 // Connects to a database and returns the DB object.
 const connectToDatabase = (dbName) => {
 	try {
-		return new(cradle.Connection)().database(dbName);
+		return new(cradle.Connection)({auth:{username: config.db.username, passowrd: config.db.password}}).database(dbName);
+		// for local system return new(cradle.Connection)().database(dbname);
 	} catch (err) {
 		throw new CouchDBError(`DB: Get: Connection to database [${dbName}] failed`);
 	}
