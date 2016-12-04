@@ -13,7 +13,7 @@ CouchDBError.prototype = Error.prototype;
 // Connects to a database and returns the DB object.
 const connectToDatabase = (dbName) => {
 	try {
-		return new(cradle.Connection)("http://127.0.0.1:6984", {auth:{username: config.db.username, passowrd: config.db.password}}).database(dbName);
+		return new(cradle.Connection)("https://127.0.0.1:6984", {auth:{username: config.db.username, passowrd: config.db.password}}).database(dbName);
 		// for local system return new(cradle.Connection)().database(dbname);
 	} catch (err) {
 		throw new CouchDBError(`DB: Get: Connection to database [${dbName}] failed`);
