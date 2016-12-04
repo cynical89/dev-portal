@@ -1,16 +1,27 @@
 <div class="container">
-
-	<div class="starter-template">
-		<h1>{{get_name}}</h1>
-		<p class="lead">This is the tasks page.</p>
-	</div><hr>
-
-{{#each tasks}}
-	{{#each this}}
-	<h4><strong>{{this.title}}</strong></h4>
-	<p><small>{{this.description}}</small></p>
-	{{/each}}
-	<hr>
-{{/each}}
-
+<br><br>
+	<div id="task-list">
+		<div class="col-md-12">
+			{{#each tasks}}
+				<div class="col-md-8">
+					<a href="/portal/task/{{this.id}}"><h4 class="list-group-item-heading"><strong><u>{{this.value.title}}</u></strong></h4></a>
+					<p class="list-group-item-text text-muted">
+						<small><strong>Status: <i class="text-success">{{this.value.status}}</strong></i></small>
+					</p>
+					<p class="list-group-item-text text-muted">
+						<small><strong>Role: <i class="text-success">{{this.value.role}}</strong></i></small>
+					</p>
+					{{#if this.value.assignedTo}}
+						<p class="list-group-item-text text-muted">
+							<small><strong>Assigned to: <i class="text-success">{{this.value.assignedTo}}</strong></i></small>
+						</p>
+					{{/if}}
+					<hr>
+				</div>
+				<div class="col-md-4">
+					<button id="{{this.id}}" class="btn btn-primary">Request Task</button>
+				</div>
+			{{/each}}
+		</div>
+	</div>
 </div><!-- /.container -->

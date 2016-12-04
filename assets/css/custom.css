@@ -10,3 +10,6 @@ body {
 .template-heading {
   padding: 40px 15px;
 }
+#task-list tr {
+  cursor: default;
+}
