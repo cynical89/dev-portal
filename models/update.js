@@ -5,7 +5,7 @@ module.exports = {
 		const update = {
 			error: false,
 			user: user,
-			date: Date.now(),
+			date: new Date(),
 			subject: subject,
 			comments: comments
 		};

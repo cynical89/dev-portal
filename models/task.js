@@ -7,7 +7,7 @@ module.exports = {
 			title: title,
 			role: role,
 			description: description,
-			created: Date.now(),
+			created: new Date(),
 			status: "pending",
 			assignedTo: null,
 			completed: null,
