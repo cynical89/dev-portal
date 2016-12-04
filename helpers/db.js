@@ -1,6 +1,6 @@
 const co = require("co");
 const Promise = require("bluebird");
-const cradle	= Promise.promisifyAll(require("cradle"), db);
+const cradle	= Promise.promisifyAll(require("cradle"));
 const config = require("../config.json");
 
 // A custom Error just for database problems.
