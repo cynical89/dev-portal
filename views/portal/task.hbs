@@ -3,7 +3,7 @@
 	<div id="task-list">
 		<div class="col-md-12">
 				<div class="col-md-8">
-					<a href="/portal/task/{{task.id}}"><h4 class="list-group-item-heading"><strong><u>{{task.title}}</u></strong></h4></a>
+					<h4 class="list-group-item-heading"><strong><u>{{task.title}}</u></strong></h4>
 					<p class="list-group-item-text text-muted">
 						<small><strong>Status: <i class="text-success">{{task.status}}</strong></i></small>
 					</p>
@@ -13,10 +13,10 @@
 						<p class="list-group-item-text text-muted">
 							<small><strong>Assigned to: <i class="text-success">{{task.assignedTo}}</strong></i></small>
 						</p>
+						<hr>
 						<p class="list-group-item-text lead">
 							{{task.description}}
 						</p>
-					<hr>
 				</div>
 				<div class="col-md-4">
 					<button id="{{task.id}}" class="btn btn-primary">Request Task</button>

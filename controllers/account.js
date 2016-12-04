@@ -9,14 +9,15 @@ module.exports.login = function* login() {
 	if (this.isAuthenticated()) {
 		user = yield db.getDocument(this.session.passport.user.username, "devs");
 	}
-	if (user != null && user.admin === true) {
+	if (user !== null && user.admin === true) {
 		yield this.render("login", {
 			admin: user
 		});
+	} else {
+		yield this.render("login", {
+			user: user
+		});
 	}
-	yield this.render("login", {
-		user: user
-	});
 };
 
 module.exports.logout = function* logout() {
@@ -30,7 +31,7 @@ module.exports.index = function* index() {
 	} else {
 		return this.redirect("/");
 	}
-	if (user.admin === true) {
+	if (user !== null && user.admin === true) {
 		yield this.render("account", {title: config.site.name, admin: JSON.stringify(user, null, 2)});
 	} else {
 		yield this.render("account", {title: config.site.name, user: JSON.stringify(user, null, 2)});

@@ -13,35 +13,36 @@ let task;
 * @returns {view} tasks - all available tasks
 */
 module.exports.tasks = function* tasks() {
+	const tasks = yield db.getAllTasks();
+	if (tasks.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: tasks.message};
+	}
 	if (this.isAuthenticated()) {
 		user = yield db.getDocument(this.session.passport.user.username, "devs");
 		if (user.error === true) {
 			this.status = 400;
 			return this.body = {error: true, message: user.message};
 		}
-		const tasks = yield db.getAllTasks();
-		if (tasks.error === true) {
-			this.status = 400;
-			return this.body = {error: true, message: tasks.message};
-		}
-
-		if (user.admin === true) {
-			yield this.render("/portal/tasks", {
-				script: "tasks",
-				title: config.site.name,
-				admin: user,
-				tasks: tasks
-			});
-		}
 	} else {
 		return this.redirect("/login");
 	}
-	yield this.render("/portal/tasks", {
-		script: "tasks",
-		title: config.site.name,
-		user: user,
-		tasks: tasks
-	});
+
+	if (user !== null && user.admin === true) {
+		yield this.render("/portal/tasks", {
+			script: "tasks",
+			title: config.site.name,
+			admin: user,
+			tasks: tasks
+		});
+	} else {
+		yield this.render("/portal/tasks", {
+			script: "tasks",
+			title: config.site.name,
+			user: user,
+			tasks: tasks
+		});
+	}
 };
 
 /**
@@ -54,35 +55,36 @@ module.exports.task = function* task() {
 		this.status = 400;
 		return this.body = {error: true, message: "You need to provide a task id"};
 	}
+	const task = yield db.getDocument(this.params.id, "tasks");
+	if (task.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: task.message};
+	}
+
 	if (this.isAuthenticated()) {
 		user = yield db.getDocument(this.session.passport.user.username, "devs");
 		if (user.error === true) {
 			this.status = 400;
 			return this.body = {error: true, message: user.message};
 		}
-		const task = yield db.getDocument(params.id, "tasks");
-		if (task.error === true) {
-			this.status = 400;
-			return this.body = {error: true, message: task.message};
-		}
-
-		if (user.admin === true) {
-			yield this.render("/portal/task", {
-				script: "task",
-				title: config.site.name,
-				admin: user,
-				task: task
-			});
-		}
 	} else {
 		return this.redirect("/login");
 	}
-	yield this.render("/portal/task", {
-		script: "task",
-		title: config.site.name,
-		user: user,
-		task: task
-	});
+	if (user.admin === true) {
+		yield this.render("/portal/task", {
+			script: "task",
+			title: config.site.name,
+			admin: user,
+			task: task
+		});
+	} else {
+		yield this.render("/portal/task", {
+			script: "task",
+			title: config.site.name,
+			user: user,
+			task: task
+		});
+	}
 };
 
 /**
@@ -99,6 +101,7 @@ module.exports.admin = function* admin() {
 
 		if (user.admin === true) {
 			yield this.render("/portal/admin", {
+				script: "admin",
 				title: config.site.name,
 				admin: user
 			});
