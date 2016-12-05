@@ -1,9 +1,9 @@
-$("#req").on("click", "button", (e) => {
+$("#task-list").on("click", "button", (e) => {
 	e.preventDefault();
 	$.ajax({
 			type: "POST",
 			dataType: "json",
-			url: `/request/task/${e.target.id}`
+			url: `/requests/task/${e.target.id}`
 		}).done((result) => {
 				if (result.error === true) {
 				console.error(result.message);

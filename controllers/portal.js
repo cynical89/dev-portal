@@ -115,7 +115,7 @@ module.exports.requests = function* requests() {
 		return this.body = {error: true, message: req.message};
 	}
 	const result = yield db.saveDocument(req, "reqs");
-	return result;
+	return this.body = result;
 };
 
 /**

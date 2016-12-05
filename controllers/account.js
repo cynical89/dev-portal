@@ -7,22 +7,35 @@ let user = null;
 
 module.exports.login = function* login() {
 	if (this.isAuthenticated()) {
-		user = yield db.getDocument(this.session.passport.user.username, "devs");
+		return this.redirect("/login_success");
 	}
-	if (user !== null && user.admin === true) {
-		yield this.render("login", {
-			admin: user
-		});
-	} else {
-		yield this.render("login", {
-			user: user
-		});
-	}
+	yield this.render("login", {
+		title: config.site.name
+	});
 };
 
 module.exports.logout = function* logout() {
 	this.logout();
-	yield this.redirect("/");
+	return this.redirect("/");
+};
+
+module.exports.success = function* success() {
+	if (this.isAuthenticated()) {
+		user = yield db.getDocument(this.session.passport.user.username, "devs");
+	} else {
+		return this.redirect("/login");
+	}
+	if (user !== null && user.admin === true) {
+		yield this.render("login_success", {
+			title: config.site.name,
+			admin: user
+		});
+	} else {
+		yield this.render("login_success", {
+			title: config.site.name,
+			user: user
+		});
+	}
 };
 
 module.exports.index = function* index() {

@@ -20,10 +20,12 @@ routes.get("/", main.index);
 routes.get("/login", account.login);
 routes.get("/logout", account.logout);
 routes.get("/account", account.index);
+routes.get("/login_success", account.success);
 
 routes.get("/portal/tasks", portal.tasks);
 routes.get("/portal/task/:id", portal.task);
-routes.get("/requests/:type/:id", portal.requests);
+routes.post("/requests/:type/:id", portal.requests);
+
 routes.get("/portal/admin", portal.admin);
 routes.post("/portal/admin/addTask", portal.addTask);
 
@@ -34,7 +36,7 @@ routes.get("/auth/github",
 
 routes.get("/auth/github/callback",
 	passport.authenticate("github", {
-		successRedirect: "/account",
+		successRedirect: "/login_success",
 		failureRedirect: "/"
 	})
 );
