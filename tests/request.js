@@ -7,7 +7,7 @@ let req;
 
 describe("Request Model - New Request", (done) => {
 	before(() => {
-		req = reqModel.newRequest("user", "task-request");
+		req = reqModel.newRequest("user", "task-request", "12345");
 	});
 
 	it("request should be a valid object", (done) => {
@@ -20,6 +20,7 @@ describe("Request Model - New Request", (done) => {
 		expect(req).to.have.property("error");
 		expect(req).to.have.property("user");
 		expect(req).to.have.property("type");
+		expect(req).to.have.property("reqId");
 		expect(req).to.have.property("requested");
 		return done();
 	});
@@ -28,8 +29,8 @@ describe("Request Model - New Request", (done) => {
 		expect(req.error).to.equal(false);
 		expect(req.user).to.equal("user");
 		expect(req.type).to.equal("task-request");
+		expect(req.reqId).to.equal("12345");
 		expect(req.requested).to.be.a("Date");
 		return done();
 	});
-
 });

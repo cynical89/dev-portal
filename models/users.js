@@ -9,6 +9,7 @@ module.exports = {
 			email: email,
 			avatarUrl: avatar,
 			role: "user",
+			lead: false,
 			admin: false
 		};
 		return user;
@@ -29,8 +30,12 @@ module.exports = {
 		user.role = role;
 		return user;
 	},
-	isAdmin: (user, admin) => {
+	changeAdmin: (user, admin) => {
 		user.admin = admin;
+		return user;
+	},
+	changeLead: (user, lead) => {
+		user.lead = lead;
 		return user;
 	}
 };

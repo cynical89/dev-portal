@@ -27,5 +27,4 @@ describe("User Role Model - New Role", (done) => {
 		expect(role.name).to.equal("Developer");
 		return done();
 	});
-
 });

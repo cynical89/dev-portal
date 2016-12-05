@@ -23,6 +23,7 @@ routes.get("/account", account.index);
 
 routes.get("/portal/tasks", portal.tasks);
 routes.get("/portal/task/:id", portal.task);
+routes.get("/requests/:type/:id", portal.requests);
 routes.get("/portal/admin", portal.admin);
 routes.post("/portal/admin/addTask", portal.addTask);
 

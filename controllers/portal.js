@@ -4,6 +4,7 @@ const config = require("../config.json");
 const db = require("../helpers/db");
 
 const taskModel = require("../models/task");
+const reqModel = require("../models/request");
 
 let user = null;
 let tasks;
@@ -85,6 +86,36 @@ module.exports.task = function* task() {
 			task: task
 		});
 	}
+};
+/**
+* POST 'requests/:type/:id'
+*
+*/
+module.exports.requests = function* requests() {
+	if (!this.isAuthenticated()) {
+		this.status = 401;
+		return this.body = {error: true, message: "You are not authorized to perform this action"};
+	}
+	if (this.params.type === null) {
+		this.status = 400;
+		return this.body = {error: true, message: "You need to provide a type of request"};
+	}
+	if (this.params.id === null) {
+		this.status = 400;
+		return this.body = {error: true, message: "You need to provide a request id"};
+	}
+	const user = yield db.getDocument(this.session.passport.user.username, "devs");
+	if (user.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: user.message};
+	}
+	const req = reqModel.newRequest(user.username, this.params.type, this.params.id);
+	if (req.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: req.message};
+	}
+	const result = yield db.saveDocument(req, "reqs");
+	return result;
 };
 
 /**
