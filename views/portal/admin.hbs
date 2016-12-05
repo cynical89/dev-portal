@@ -1,10 +1,19 @@
 <div class="container">
-
 	<div class="starter-template">
 		<h1>{{get_name}}</h1>
 		<p class="lead">This is the admin page.</p>
 		<br><br>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal"><Small>Add Task</Small></button>
+	</div>
+
+	<div class="col-md-6 col-md-offset-3">
+			<button type="button" class="btn btn-block btn-sm btn-default" data-toggle="modal" data-target="#taskModal">Add Task</button>
+			<a href="/portal/admin/requests" class="btn btn-block btn-sm btn-primary">View Requests</a>
+			<button type="button" class="btn btn-block btn-sm btn-default">Assign Task</button>
+			<button type="button" class="btn btn-block btn-sm btn-primary">Modify User</button>
+			<button type="button" class="btn btn-block btn-sm btn-default">Extra Button</button>
+			<button type="button" class="btn btn-block btn-sm btn-primary">Extra Button</button>
+			<button type="button" class="btn btn-block btn-sm btn-default">Extra Button</button>
+			<button type="button" class="btn btn-block btn-sm btn-primary">Extra Button</button>
 	</div>
 
 	<div class="add-task">
@@ -36,7 +45,7 @@
 													</div>
 	                    </div>
 	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	                        <button type="button" id="taskSubmitButton" class="btn btn-primary" data-dismiss="modal">Add Task</button>
 	                    </div>
 	                </div>

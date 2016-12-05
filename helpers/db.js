@@ -68,10 +68,26 @@ exports.removeDocument = function* removeDocument(id, database) {
 	}
 };
 
+// TODO: Put these into a runView function - DRY
+
 exports.getAllTasks = function* getAllTasks() {
 	try {
 		const db = connectToDatabase("tasks");
 		const doc = yield db.viewAsync("gettasks/all");
+		doc.error = false;
+		return doc;
+	} catch (err) {
+		return {
+			error: true,
+			message: "DB: Get of all task docs failed"
+		};
+	}
+};
+
+exports.getAllReqs = function* getAllReqs() {
+	try {
+		const db = connectToDatabase("reqs");
+		const doc = yield db.viewAsync("getreqs/all");
 		doc.error = false;
 		return doc;
 	} catch (err) {

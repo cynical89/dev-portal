@@ -91,7 +91,7 @@ module.exports.task = function* task() {
 * POST 'requests/:type/:id'
 *
 */
-module.exports.requests = function* requests() {
+module.exports.request = function* request() {
 	if (!this.isAuthenticated()) {
 		this.status = 401;
 		return this.body = {error: true, message: "You are not authorized to perform this action"};
@@ -142,6 +142,41 @@ module.exports.admin = function* admin() {
 	} else {
 		return this.redirect("/login");
 	}
+};
+
+module.exports.requests = function* requests() {
+	const reqs = yield db.getAllReqs();
+	if (reqs.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: reqs.message};
+	}
+	if (this.isAuthenticated()) {
+		user = yield db.getDocument(this.session.passport.user.username, "devs");
+		if (user.error === true) {
+			this.status = 400;
+			return this.body = {error: true, message: user.message};
+		}
+	} else {
+		return this.redirect("/login");
+	}
+
+	if (user !== null && user.admin === true) {
+		yield this.render("/portal/requests", {
+			title: config.site.name,
+			admin: user,
+			reqs: reqs
+		});
+	} else {
+		return this.redirect("/portal/tasks");
+	}
+};
+
+module.exports.assigning = function* assingin() {
+
+};
+
+module.exports.assign = function* assign() {
+
 };
 
 /**

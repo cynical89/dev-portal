@@ -45,8 +45,8 @@ module.exports.index = function* index() {
 		return this.redirect("/");
 	}
 	if (user !== null && user.admin === true) {
-		yield this.render("account", {title: config.site.name, admin: JSON.stringify(user, null, 2)});
+		yield this.render("account", {title: config.site.name, admin: user});
 	} else {
-		yield this.render("account", {title: config.site.name, user: JSON.stringify(user, null, 2)});
+		yield this.render("account", {title: config.site.name, user: user});
 	}
 };

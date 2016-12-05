@@ -1,0 +1,14 @@
+<div class="container">
+<br><br>
+	<div id="req-list">
+		<div class="col-md-12">
+			{{#each reqs}}
+					<a href="/portal/{{this.value.type}}/{{this.value.reqId}}"><h4 class="list-group-item-heading"><strong><u>{{this.value.type }} - {{this.value.reqId}}</u></strong></h4></a>
+					<p class="list-group-item-text text-muted">
+						<small><strong>Requested By: <i class="text-success">{{this.value.user}}</strong></i></small>
+					</p>
+				<hr>
+			{{/each}}
+		</div>
+	</div>
+</div><!-- /.container -->

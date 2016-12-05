@@ -22,11 +22,19 @@ routes.get("/logout", account.logout);
 routes.get("/account", account.index);
 routes.get("/login_success", account.success);
 
+// GET requests for dev portal
 routes.get("/portal/tasks", portal.tasks);
 routes.get("/portal/task/:id", portal.task);
-routes.post("/requests/:type/:id", portal.requests);
+// POST requests for dev portal
+routes.post("/requests/:type/:id", portal.request);
 
+// GET requests for admin portal
 routes.get("/portal/admin", portal.admin);
+routes.get("/portal/admin/requests", portal.requests);
+routes.get("/portal/admin/assign", portal.assigning);
+
+// POST requests for admin portal
+routes.post("/portal/admin/assign", portal.assign);
 routes.post("/portal/admin/addTask", portal.addTask);
 
 // you can add as many strategies as you want
