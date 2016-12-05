@@ -162,6 +162,7 @@ module.exports.requests = function* requests() {
 
 	if (user !== null && user.admin === true) {
 		yield this.render("/portal/requests", {
+			script: "requests",
 			title: config.site.name,
 			admin: user,
 			reqs: reqs
@@ -169,6 +170,26 @@ module.exports.requests = function* requests() {
 	} else {
 		return this.redirect("/portal/tasks");
 	}
+};
+
+module.exports.deleteReq = function* deleteReq() {
+	if (!this.isAuthenticated()) {
+		this.status = 404;
+		return this.body = {error: true, message: "You are not authorized to complete this action"};
+	}
+	// TODO: Authenticate user as admin!
+
+	if (this.params.id === null) {
+		this.status = 400;
+		return this.body = {error: true, message: "You must provie a request id"};
+	}
+	const result = yield db.removeDocument(this.params.id, "reqs");
+	if (result.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: result.message};
+	}
+
+	return this.body = result;
 };
 
 module.exports.assigning = function* assingin() {
@@ -192,6 +213,8 @@ module.exports.addTask = function* addTask() {
 		this.status = 404;
 		return this.body = {error: true, message: "You are not authorized to complete this action"};
 	}
+	// TODO: Authenticate user as admin!
+
 	if (!params.title && !params.description) {
 		this.status = 400;
 		return this.body = {error: true, message: "You must provie valid parameters"};
@@ -202,6 +225,26 @@ module.exports.addTask = function* addTask() {
 		return this.body = {error: true, message: task.message};
 	}
 	const result = yield db.saveDocument(task, "tasks");
+	if (result.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: result.message};
+	}
+
+	return this.body = result;
+};
+
+module.exports.deleteTask = function* deleteTask() {
+	if (!this.isAuthenticated()) {
+		this.status = 404;
+		return this.body = {error: true, message: "You are not authorized to complete this action"};
+	}
+	// TODO: Authenticate user as admin!
+
+	if (this.params.id === null) {
+		this.status = 400;
+		return this.body = {error: true, message: "You must provie a task id"};
+	}
+	const result = yield db.removeDocument(this.params.id, "tasks");
 	if (result.error === true) {
 		this.status = 400;
 		return this.body = {error: true, message: result.message};

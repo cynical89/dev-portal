@@ -1,6 +1,6 @@
 <div class="container">
 <br><br>
-	<div id="task-list">
+	<div id="task-view">
 		<div class="col-md-12">
 				<div class="col-md-8">
 					<h4 class="list-group-item-heading"><strong><u>{{task.title}}</u></strong></h4>
@@ -19,7 +19,10 @@
 						</p>
 				</div>
 				<div class="col-md-4">
-					<button id="{{task.id}}" class="btn btn-primary">Request Task</button>
+					<button id="{{task.id}}" class="btn btn-sm btn-default">Request Task</button>
+					{{#if admin}}
+					<button id="rm:{{task.id}}" class="btn btn-sm btn-default">Delete Task</button>
+					{{/if}}
 				</div>
 		</div>
 	</div>

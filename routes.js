@@ -34,8 +34,10 @@ routes.get("/portal/admin/requests", portal.requests);
 routes.get("/portal/admin/assign", portal.assigning);
 
 // POST requests for admin portal
+routes.post("/portal/requests/delete/:id", portal.deleteReq);
 routes.post("/portal/admin/assign", portal.assign);
 routes.post("/portal/admin/addTask", portal.addTask);
+routes.post("/portal/task/delete/:id", portal.deleteTask);
 
 // you can add as many strategies as you want
 routes.get("/auth/github",
