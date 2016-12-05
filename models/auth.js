@@ -37,7 +37,7 @@ passport.use(new GithubStrategy({
 			const username = profile.username;
 			const avatar = profile._json.avatar_url;
 			let email = "none";
-			if (profile.emails !== null || profile.emails !== undefined) {
+			if (profile.emails !== null && profile.emails !== undefined) {
 				email = profile.emails[0].value;
 			}
 			const user = userModel.newUser(username, email, avatar);
