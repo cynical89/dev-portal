@@ -109,7 +109,7 @@ module.exports.request = function* request() {
 		this.status = 400;
 		return this.body = {error: true, message: user.message};
 	}
-	const task = yield db.getDocument(this.params.id, "reqs");
+	const task = yield db.getDocument(this.params.id, `${this.params.type}s`);
 	if (task.error === true) {
 		this.status = 400;
 		return this.body = {error: true, message: task.message};
