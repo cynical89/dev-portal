@@ -109,12 +109,12 @@ module.exports.request = function* request() {
 		this.status = 400;
 		return this.body = {error: true, message: user.message};
 	}
-	const task = yield db.getDocument(this.params.id, `${this.params.type}s`);
-	if (task.error === true) {
+	const doc = yield db.getDocument(this.params.id, `${this.params.type}s`);
+	if (doc.error === true) {
 		this.status = 400;
-		return this.body = {error: true, message: task.message};
+		return this.body = {error: true, message: doc.message};
 	}
-	const req = reqModel.newRequest(user.username, this.params.type, this.params.id, task.title);
+	const req = reqModel.newRequest(user.username, this.params.type, this.params.id, doc.title, doc.project);
 	if (req.error === true) {
 		this.status = 400;
 		return this.body = {error: true, message: req.message};
