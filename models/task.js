@@ -1,14 +1,15 @@
 "use strict";
 
 module.exports = {
-	newTask: (title, description, role = "Any") => {
+	newTask: (title, project, description, role = "Any") => {
 		const task = {
 			error: false,
 			title: title,
 			role: role,
+			project: project,
 			description: description,
 			created: new Date(),
-			status: "pending",
+			status: "Pending",
 			assignedTo: null,
 			completed: null,
 			updates: []
@@ -37,6 +38,7 @@ module.exports = {
 	},
 	completeTask: (task) => {
 		task.completed = Date.now();
+		task.status = "Completed";
 		return task;
 	},
 	addUpdate: (task, update) => {

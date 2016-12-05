@@ -215,11 +215,11 @@ module.exports.addTask = function* addTask() {
 	}
 	// TODO: Authenticate user as admin!
 
-	if (!params.title && !params.description) {
+	if (!params.title || !params.description || !params.role || !params.project) {
 		this.status = 400;
 		return this.body = {error: true, message: "You must provie valid parameters"};
 	}
-	const task = taskModel.newTask(params.title, params.description);
+	const task = taskModel.newTask(params.title, params.project, params.description, params.role);
 	if (task.error === true) {
 		this.status = 400;
 		return this.body = {error: true, message: task.message};

@@ -1,0 +1,35 @@
+<div class="col-md-6 col-md-offset-3">
+	<div class="modal-body">
+			<form>
+					<input type="hidden" name="User" value="@User.Identity.Name"/>
+					<input type="hidden" name="ParentPost" value="@post.Id"/>
+					<div class="form-group">
+							<label for="title-text" class="form-control-label">Title:</label>
+							<input type="text" class="form-control" id="title-text" name="Title"></input>
+					</div>
+					<div class="form-group">
+							<label for="role-text" class="form-control-label">Role:</label>
+							<select class="form-control" id="role-text" name="Role">
+								{{#each roles}}
+									<option>{{this.value.name}}</option>
+								{{/each}}
+							</select>
+					</div>
+					<div class="form-group">
+							<label for="project-text" class="form-control-label">Project:</label>
+							<select class="form-control" id="project-text" name="Project">
+								{{#each projects}}
+									<option>{{this.value.name}}</option>
+								{{/each}}
+							</select>
+					</div>
+			</form>
+			<div class="form-group">
+					<label for="content-text" class="form-control-label">Content</label>
+					<textarea type="text" class="form-control" id="content-text" name="Content"></textarea>
+			</div>
+	</div>
+	<div class="modal-footer">
+			<button type="button" id="taskSubmitButton" class="btn btn-primary" data-dismiss="modal">Add Task</button>
+	</div>
+</div>

@@ -20,9 +20,7 @@ const connectToDatabase = (dbName) => {
 	}
 };
 
-// This is for the orders!
-
-// Grabs an order document from the database in CouchDB.
+// Grabs a document from the database in CouchDB.
 exports.getDocument = function* getDocument(id, database) {
 	try {
 		const db = connectToDatabase(database);
@@ -37,7 +35,7 @@ exports.getDocument = function* getDocument(id, database) {
 	}
 };
 
-// Saves an order document in the database in CouchDB.
+// Saves a document in the database in CouchDB.
 exports.saveDocument = function* saveDocument(document, database) {
 	try {
 		const db = connectToDatabase(database);
@@ -53,7 +51,7 @@ exports.saveDocument = function* saveDocument(document, database) {
 	}
 };
 
-// Removes an order document in the database in CouchDB.
+// Removes a document in the database in CouchDB.
 exports.removeDocument = function* removeDocument(id, database) {
 	try {
 		const db = connectToDatabase(database);
@@ -93,7 +91,35 @@ exports.getAllReqs = function* getAllReqs() {
 	} catch (err) {
 		return {
 			error: true,
-			message: "DB: Get of all task docs failed"
+			message: "DB: Get of all request docs failed"
+		};
+	}
+};
+
+exports.getAllRoles = function* getAllRoles() {
+	try {
+		const db = connectToDatabase("roles");
+		const doc = yield db.viewAsync("getroles/all");
+		doc.error = false;
+		return doc;
+	} catch (err) {
+		return {
+			error: true,
+			message: "DB: Get of all project docs failed"
+		};
+	}
+};
+
+exports.getAllProjects = function* getAllProjects() {
+	try {
+		const db = connectToDatabase("projects");
+		const doc = yield db.viewAsync("getprojects/all");
+		doc.error = false;
+		return doc;
+	} catch (err) {
+		return {
+			error: true,
+			message: "DB: Get of all project docs failed"
 		};
 	}
 };

@@ -8,8 +8,7 @@ module.exports = {
 			username: username,
 			email: email,
 			avatarUrl: avatar,
-			role: "user",
-			lead: false,
+			role: "User",
 			admin: false
 		};
 		return user;
@@ -32,10 +31,6 @@ module.exports = {
 	},
 	changeAdmin: (user, admin) => {
 		user.admin = admin;
-		return user;
-	},
-	changeLead: (user, lead) => {
-		user.lead = lead;
 		return user;
 	}
 };
