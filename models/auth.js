@@ -24,8 +24,8 @@ if (config.site.port !== 80) {
 passport.use(new GithubStrategy({
 	clientID: config.site.oauth.github.clientID,
 	clientSecret: config.site.oauth.github.clientSecret,
-	// callbackURL: `${config.site.oauth.host}/auth/github/callback`
-	callbackURL: `${config.site.oauth.host}${port}/auth/github/callback`
+	callbackURL: `${config.site.oauth.host}/auth/github/callback`
+	// for local testing callbackURL: `${config.site.oauth.host}${port}/auth/github/callback`
 }, (token, tokenSecret, profile, done) => {
 	// retrieve user ...
 	co(function* auth() {
