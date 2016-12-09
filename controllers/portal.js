@@ -5,6 +5,7 @@ const db = require("../helpers/db");
 
 const taskModel = require("../models/task");
 const reqModel = require("../models/request");
+const updateModel = require("../models/update");
 
 let user = null;
 let tasks;
@@ -62,6 +63,7 @@ module.exports.task = function* task() {
 	} else {
 		return this.redirect("/login");
 	}
+	console.log(task);
 	yield this.render("/portal/task", {
 		script: "task",
 		title: config.site.name,
@@ -102,6 +104,39 @@ module.exports.request = function* request() {
 		return this.body = {error: true, message: req.message};
 	}
 	const result = yield db.saveDocument(req, "reqs");
+	return this.body = result;
+};
+
+module.exports.addUpdate = function* addUpdate() {
+	const params = this.request.body;
+	if (!this.isAuthenticated()) {
+		this.status = 401;
+		return this.body = {error: true, message: "You are not authorized to perform this action"};
+	}
+	if (!params.id || !params.subject || !params.comments) {
+		this.status = 400;
+		return this.body = {error: true, message: "You need to provide valid information"};
+	}
+	let task = yield db.getDocument(params.id, "tasks");
+	if (task.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: task.message};
+	}
+	const update = updateModel.newUpdate(this.session.passport.user.username, params.subject, params.comments);
+	if (update.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: update.message};
+	}
+	task = taskModel.addUpdate(task, update);
+	if (task.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: task.message};
+	}
+	const result = yield db.saveDocument(task, "tasks");
+	if (result.error === true) {
+		this.status = 400;
+		return this.body = {error: true, message: result.message};
+	}
 	return this.body = result;
 };
 

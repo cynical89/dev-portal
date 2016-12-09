@@ -26,8 +26,10 @@ routes.get("/login_success", account.success);
 // GET requests for dev portal
 routes.get("/portal/tasks", portal.tasks);
 routes.get("/portal/task/:id", portal.task);
+
 // POST requests for dev portal
 routes.post("/requests/:type/:id", portal.request);
+routes.post("/portal/task/update", portal.addUpdate);
 
 // GET requests for admin portal
 routes.get("/portal/admin", portal.admin);

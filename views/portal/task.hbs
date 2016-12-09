@@ -23,13 +23,60 @@
 						<p class="list-group-item-text lead">
 							{{task.description}}
 						</p>
+						<hr>
+						<h3>Updates:</h3>
+						<br><br>
+						{{#each task.updates}}
+						<h4 class="list-group-item-heading"><strong><u>{{this.subject}}</u></strong></h4>
+						<p class="list-group-item-text text-muted">
+							<small><strong>Submit by: <i class="text-success">{{this.user}}</i> on <i class="text-success">{{this.date}}</strong></i></small>
+						</p><br>
+						<p class="list-group-item-text">
+							{{this.comments}}
+						</p>
+						<hr>
+						{{/each}}
 				</div>
 				<div class="col-md-4">
 					<button id="{{task.id}}" class="btn btn-sm btn-default">Request Task</button>
+					<button id="modelbutton" type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#updateModal">Add Update</button>
 					{{#if user.admin}}
 					<button id="rm:{{task.id}}" class="btn btn-sm btn-default">Delete Task</button>
 					{{/if}}
 				</div>
 		</div>
 	</div>
+
+	<div class="update">
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+							<input id="taskInput" type="hidden" name="id" value="{{task.id}}">
+              <label for="subject" class="form-control-label">Subject:</label>
+              <input type="text" class="form-control" id="subject">
+            </div>
+            <div class="form-group">
+              <label for="comment-text" class="form-control-label">Comments:</label>
+              <textarea class="form-control" id="comment-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="updateButton" type="button" class="btn btn-primary" data-dimiss="modal">Update!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /.container -->
