@@ -63,7 +63,6 @@ module.exports.task = function* task() {
 	} else {
 		return this.redirect("/login");
 	}
-	console.log(task);
 	yield this.render("/portal/task", {
 		script: "task",
 		title: config.site.name,
