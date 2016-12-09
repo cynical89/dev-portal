@@ -25,17 +25,10 @@ module.exports.success = function* success() {
 	} else {
 		return this.redirect("/login");
 	}
-	if (user !== null && user.admin === true) {
-		yield this.render("login_success", {
-			title: config.site.name,
-			admin: user
-		});
-	} else {
-		yield this.render("login_success", {
-			title: config.site.name,
-			user: user
-		});
-	}
+	yield this.render("login_success", {
+		title: config.site.name,
+		user: user
+	});
 };
 
 module.exports.index = function* index() {
@@ -44,9 +37,5 @@ module.exports.index = function* index() {
 	} else {
 		return this.redirect("/");
 	}
-	if (user !== null && user.admin === true) {
-		yield this.render("account", {title: config.site.name, admin: user});
-	} else {
-		yield this.render("account", {title: config.site.name, user: user});
-	}
+	yield this.render("account", {title: config.site.name, user: user});
 };

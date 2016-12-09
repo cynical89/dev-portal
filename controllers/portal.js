@@ -29,21 +29,12 @@ module.exports.tasks = function* tasks() {
 		return this.redirect("/login");
 	}
 
-	if (user !== null && user.admin === true) {
-		yield this.render("/portal/tasks", {
-			script: "tasks",
-			title: config.site.name,
-			admin: user,
-			tasks: tasks
-		});
-	} else {
-		yield this.render("/portal/tasks", {
-			script: "tasks",
-			title: config.site.name,
-			user: user,
-			tasks: tasks
-		});
-	}
+	yield this.render("/portal/tasks", {
+		script: "tasks",
+		title: config.site.name,
+		user: user,
+		tasks: tasks
+	});
 };
 
 /**
@@ -71,21 +62,12 @@ module.exports.task = function* task() {
 	} else {
 		return this.redirect("/login");
 	}
-	if (user.admin === true) {
-		yield this.render("/portal/task", {
-			script: "task",
-			title: config.site.name,
-			admin: user,
-			task: task
-		});
-	} else {
-		yield this.render("/portal/task", {
-			script: "task",
-			title: config.site.name,
-			user: user,
-			task: task
-		});
-	}
+	yield this.render("/portal/task", {
+		script: "task",
+		title: config.site.name,
+		user: user,
+		task: task
+	});
 };
 /**
 * POST 'requests/:type/:id'
@@ -139,7 +121,7 @@ module.exports.admin = function* admin() {
 			yield this.render("/portal/admin", {
 				script: "admin",
 				title: config.site.name,
-				admin: user
+				user: user
 			});
 		} else {
 			return this.redirect("/portal/tasks");
@@ -169,7 +151,7 @@ module.exports.requests = function* requests() {
 		yield this.render("/portal/requests", {
 			script: "requests",
 			title: config.site.name,
-			admin: user,
+			user: user,
 			reqs: reqs
 		});
 	} else {

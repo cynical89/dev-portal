@@ -26,7 +26,7 @@
 				</div>
 				<div class="col-md-4">
 					<button id="{{task.id}}" class="btn btn-sm btn-default">Request Task</button>
-					{{#if admin}}
+					{{#if user.admin}}
 					<button id="rm:{{task.id}}" class="btn btn-sm btn-default">Delete Task</button>
 					{{/if}}
 				</div>
